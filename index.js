@@ -5,8 +5,11 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const swaggerDocument = YAML.load("./swagger.yaml");
 
+const fileUpload = require("express-fileupload");
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
+app.use(fileUpload());
 
 let fruits = [
   {
@@ -45,14 +48,27 @@ app.get("/api/v1/allFruits/:fruitId", (req, res) => {
 
 app.post("/api/v1/addFruit", (req, res) => {
   console.log(req.body);
-  fruits.push(req.body);  // Before pushing, do proper validation check
+  fruits.push(req.body); // Before pushing, do proper validation check
   res.send(true);
 });
 
 app.get("/api/v1/stringQuery", (req, res) => {
   let location = req.query.location;
   let device = req.query.device;
-  res.send({location, device});
+  res.send({ location, device });
 });
+
+app.post("/api/v1/imageUpload", (req, res) => {
+  const file = req.files.file;
+  let path = __dirname + "/images/" + file.name;
+  console.log(file);
+  
+  file.mv(path, (err) => {
+    if (err)
+      return res.status(500).send(err);
+    res.send('Image uploaded!');
+  });
+});
+
 
 app.listen(3000, () => console.log(`Server is running at port 3000...`));
