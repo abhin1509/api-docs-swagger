@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  title: Swagger tutorial using swagger-ui-express
+  description: Api documentation using openapi.
+  version: 1.0.0 # document version
+  contact:
+    email: abhin1509@gmail.com
+    url: "https://github.com/abhin1509"
+
+# servers:  # like prod, dev, testing, staging
+#   - url: "https://localhost:3000/api/v1"
+#     description: for localhost - secure
+#   - url: "https://localhost:3000/api/v1"
+#     description: for localhost - regular
+
+servers:
+  - url: "{protocol}://localhost:3000/api/{version}"
+    description: for localhost
+    variables:
+      version: # It's a variable, we can also call it something else
+        enum: # It restrict options
+          - v1
+          - v2
+        default: v1
+      protocol: # It is also a variable.
+        enum:
+          - http
+          - https
+        default: http
+
+# for routes which require validation from cookie or sessions.
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apikey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /hello:
+    get:
+      tags: # instead of default we can group, eg: string
+        - string
+      summary: returns a greet message from Abhinav
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "mystring"
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /mart:
+    get:
+      tags:
+        - object
+      summary: returns a unique fruit
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: # properties only comes when there is type of object
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /fruits:
+    get:
+      tags:
+        - Array
+      summary: returns all fruits
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /allFruits/{fruitId}:
+    get:
+      tags:
+        - string
+      summary: returns fruit based on request id
+      parameters:
+        - name: fruitId
+          in: path
+          required: true
+          default: 22
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /addFruit:
+    post:
+      tags:
+        - string
+      summary: adds a new fruit
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody: # for post
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: boolean
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /stringQuery:
+    get:
+      tags:
+        - string
+      summary: learning about string query
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [delhi, london, jaipur]
+        - name: device
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [web, mobile]
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  device:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /imageUpload:
+    post:
+      tags:
+        - string
+      summary: uploading image
+      parameters:
+        - in: header
+          name: auth
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:  # used in index.js or frontend
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: All good success
+        400:
+          description: Bad request
+        500:
+          description: internal server error 
