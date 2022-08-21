@@ -59,6 +59,7 @@ app.get("/api/v1/stringQuery", (req, res) => {
 });
 
 app.post("/api/v1/imageUpload", (req, res) => {
+  console.log(req.headers);
   const file = req.files.file;
   let path = __dirname + "/images/" + file.name;
   console.log(file);

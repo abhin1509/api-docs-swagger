@@ -213,6 +213,9 @@ paths:
       tags:
         - string
       summary: uploading image
+      parameters:
+        - in: header
+          name: auth
       requestBody:
         content:
           multipart/form-data:
@@ -228,4 +231,4 @@ paths:
         400:
           description: Bad request
         500:
-          description: internal server error
+          description: internal server error 
