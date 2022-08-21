@@ -3,7 +3,7 @@ info:
   title: Swagger tutorial using swagger-ui-express
   description: Api documentation using openapi.
   version: 1.0.0 # document version
-  contact: 
+  contact:
     email: abhin1509@gmail.com
     url: "https://github.com/abhin1509"
 
@@ -17,12 +17,12 @@ servers:
   - url: "{protocol}://localhost:3000/api/{version}"
     description: for localhost
     variables:
-      version:  # It's a variable, we can also call it something else
-        enum:  # It restrict options
+      version: # It's a variable, we can also call it something else
+        enum: # It restrict options
           - v1
           - v2
         default: v1
-      protocol:  # It is also a variable.
+      protocol: # It is also a variable.
         enum:
           - http
           - https
@@ -38,3 +38,46 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
+
+paths:
+  /hello:
+    get:
+      tags: # instead of default we can group, eg: string
+        - string
+      summary: returns a greet message from Abhinav
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "mystring"
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /mart:
+    get:
+      tags:
+        - object
+      summary: returns a unique fruit
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: # properties only comes when there is type of object
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
