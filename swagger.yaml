@@ -101,7 +101,7 @@ paths:
                       type: string
                     name:
                       type: string
-                    price: 
+                    price:
                       type: number
         400:
           description: Bad request
@@ -138,7 +138,7 @@ paths:
           description: Bad request
         500:
           description: internal server error
-  
+
   /addFruit:
     post:
       tags:
@@ -154,7 +154,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties: 
+              properties:
                 id:
                   type: string
                 name:
@@ -182,7 +182,7 @@ paths:
         - name: location
           in: query
           required: true
-          schema: 
+          schema:
             type: string
             enum: [delhi, london, jaipur]
         - name: device
@@ -203,6 +203,28 @@ paths:
                     type: string
                   device:
                     type: string
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /imageUpload:
+    post:
+      tags:
+        - string
+      summary: uploading image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:  # used in index.js or frontend
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: All good success
         400:
           description: Bad request
         500:
