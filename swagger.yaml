@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Swagger tutorial using swagger-ui-express
+  description: Api documentation using openapi.
+  version: 1.0.0 # document version
+  contact: 
+    email: abhin1509@gmail.com
+    url: "https://github.com/abhin1509"
+
+# servers:  # like prod, dev, testing, staging
+#   - url: "https://localhost:3000/api/v1"
+#     description: for localhost - secure
+#   - url: "https://localhost:3000/api/v1"
+#     description: for localhost - regular
+
+servers:
+  - url: "{protocol}://localhost:3000/api/{version}"
+    description: for localhost
+    variables:
+      version:  # It's a variable, we can also call it something else
+        enum:  # It restrict options
+          - v1
+          - v2
+        default: v1
+      protocol:  # It is also a variable.
+        enum:
+          - http
+          - https
+        default: http
