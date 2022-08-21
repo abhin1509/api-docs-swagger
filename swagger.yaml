@@ -27,3 +27,14 @@ servers:
           - http
           - https
         default: http
+
+# for routes which require validation from cookie or sessions.
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apikey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
