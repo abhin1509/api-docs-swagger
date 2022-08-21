@@ -138,3 +138,37 @@ paths:
           description: Bad request
         500:
           description: internal server error
+  
+  /addFruit:
+    post:
+      tags:
+        - string
+      summary: adds a new fruit
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody: # for post
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: boolean
+        400:
+          description: Bad request
+        500:
+          description: internal server error
