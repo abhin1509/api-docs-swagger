@@ -81,3 +81,60 @@ paths:
           description: Bad request
         500:
           description: internal server error
+
+  /fruits:
+    get:
+      tags:
+        - Array
+      summary: returns all fruits
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price: 
+                      type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /allFruits/{fruitId}:
+    get:
+      tags:
+        - string
+      summary: returns fruit based on request id
+      parameters:
+        - name: fruitId
+          in: path
+          required: true
+          default: 22
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good and success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
